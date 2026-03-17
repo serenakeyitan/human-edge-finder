@@ -2,7 +2,9 @@
 
 import json
 from pathlib import Path
+
 from click.testing import CliRunner
+
 from human_edge_finder.cli import cli
 
 

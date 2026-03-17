@@ -1,13 +1,14 @@
 """Command-line interface for Human Edge Finder."""
 
-import click
 import sys
 from pathlib import Path
 from typing import List
 
-from .analyzer import analyze_skills, compare_skill_to_ai, get_edge_report
-from .formatter import format_as_table, format_as_json, format_as_markdown, format_comparison
+import click
+
 from . import __version__
+from .analyzer import analyze_skills, compare_skill_to_ai
+from .formatter import format_as_json, format_as_markdown, format_as_table, format_comparison
 
 
 @click.group()

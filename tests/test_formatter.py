@@ -1,6 +1,7 @@
 """Tests for output formatting."""
 
 import json
+
 from human_edge_finder.analyzer import analyze_skills
 from human_edge_finder.formatter import format_as_json, format_as_markdown
 

@@ -1,6 +1,7 @@
 """Core analysis engine for identifying human edges over AI."""
 
-from typing import List, Dict, NamedTuple
+from typing import Dict, List, NamedTuple
+
 from .domains import get_ai_capability, get_human_edge_score
 
 
@@ -84,7 +85,11 @@ def analyze_skills(skills: List[str]) -> EdgeAnalysis:
         "edge_zones_count": len(edge_zones),
         "risk_zones_count": len(risk_zones),
         "neutral_zones_count": len(neutral_zones),
-        "average_edge_score": sum(s.edge_score for s in skill_analyses) / len(skill_analyses) if skill_analyses else 0,
+        "average_edge_score": (
+            sum(s.edge_score for s in skill_analyses) / len(skill_analyses)
+            if skill_analyses
+            else 0
+        ),
         "strongest_edge": edge_zones[0].skill if edge_zones else None,
         "highest_risk": risk_zones[0].skill if risk_zones else None,
     }
@@ -125,15 +130,29 @@ def compare_skill_to_ai(skill: str) -> Dict[str, any]:
 def _get_recommendation(analysis: SkillAnalysis) -> str:
     """Generate recommendation based on analysis."""
     if analysis.category == "strong_edge":
-        return f"🟢 Strong competitive advantage! Focus on '{analysis.skill}' - this is where you excel over AI."
+        return (
+            f"🟢 Strong competitive advantage! Focus on '{analysis.skill}' - "
+            "this is where you excel over AI."
+        )
     elif analysis.category == "moderate_edge":
-        return f"🟡 Moderate advantage. '{analysis.skill}' is a good area to develop further."
+        return (
+            f"🟡 Moderate advantage. '{analysis.skill}' is a good area to develop further."
+        )
     elif analysis.category == "neutral":
-        return f"⚪ Level playing field. Consider combining '{analysis.skill}' with your unique context."
+        return (
+            f"⚪ Level playing field. Consider combining '{analysis.skill}' "
+            "with your unique context."
+        )
     elif analysis.category == "risk_zone":
-        return f"🟠 Risk zone. AI is competitive in '{analysis.skill}'. Focus on adding human context."
+        return (
+            f"🟠 Risk zone. AI is competitive in '{analysis.skill}'. "
+            "Focus on adding human context."
+        )
     else:  # ai_dominated
-        return f"🔴 AI-dominated. Consider leveraging AI for '{analysis.skill}' and focus on your edge zones."
+        return (
+            f"🔴 AI-dominated. Consider leveraging AI for '{analysis.skill}' "
+            "and focus on your edge zones."
+        )
 
 
 def get_edge_report(analysis: EdgeAnalysis) -> Dict[str, any]:
@@ -189,11 +208,25 @@ def get_edge_report(analysis: EdgeAnalysis) -> Dict[str, any]:
 def _get_overall_assessment(analysis: EdgeAnalysis) -> str:
     """Generate overall assessment based on analysis."""
     avg_score = analysis.summary["average_edge_score"]
-    edge_pct = (analysis.summary["edge_zones_count"] / analysis.summary["total_skills"] * 100) if analysis.summary["total_skills"] > 0 else 0
+    edge_pct = (
+        (analysis.summary["edge_zones_count"] / analysis.summary["total_skills"] * 100)
+        if analysis.summary["total_skills"] > 0
+        else 0
+    )
 
     if avg_score >= 2 or edge_pct >= 60:
-        return "You have a strong overall edge over AI! Focus on leveraging your unique human strengths."
+        return (
+            "You have a strong overall edge over AI! "
+            "Focus on leveraging your unique human strengths."
+        )
     elif avg_score >= 0 or edge_pct >= 40:
-        return "You have a balanced skill set. Focus on your edge zones and use AI to augment risk zones."
+        return (
+            "You have a balanced skill set. "
+            "Focus on your edge zones and use AI to augment risk zones."
+        )
     else:
-        return "Many of your skills overlap with AI capabilities. Consider developing more human-centric skills or adding unique context to your existing skills."
+        return (
+            "Many of your skills overlap with AI capabilities. "
+            "Consider developing more human-centric skills or adding unique context "
+            "to your existing skills."
+        )

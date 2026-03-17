@@ -2,10 +2,12 @@
 
 import json
 from typing import Dict, List
+
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
+from rich.table import Table
 from rich.text import Text
+
 from .analyzer import EdgeAnalysis, SkillAnalysis
 
 
@@ -20,15 +22,15 @@ def format_as_table(analysis: EdgeAnalysis) -> None:
 
     # Summary panel
     summary_text = Text()
-    summary_text.append(f"Total Skills Analyzed: ", style="bold cyan")
+    summary_text.append("Total Skills Analyzed: ", style="bold cyan")
     summary_text.append(f"{analysis.summary['total_skills']}\n")
-    summary_text.append(f"Edge Zones (Your Advantage): ", style="bold green")
+    summary_text.append("Edge Zones (Your Advantage): ", style="bold green")
     summary_text.append(f"{analysis.summary['edge_zones_count']}\n")
-    summary_text.append(f"Risk Zones (AI Competitive): ", style="bold red")
+    summary_text.append("Risk Zones (AI Competitive): ", style="bold red")
     summary_text.append(f"{analysis.summary['risk_zones_count']}\n")
-    summary_text.append(f"Neutral Zones: ", style="bold yellow")
+    summary_text.append("Neutral Zones: ", style="bold yellow")
     summary_text.append(f"{analysis.summary['neutral_zones_count']}\n")
-    summary_text.append(f"Average Edge Score: ", style="bold magenta")
+    summary_text.append("Average Edge Score: ", style="bold magenta")
     summary_text.append(f"{analysis.summary['average_edge_score']:.2f}")
 
     console.print(Panel(summary_text, title="Analysis Summary", border_style="blue"))
@@ -181,20 +183,20 @@ def format_comparison(comparison: Dict[str, any]) -> None:
 
     # Create comparison panel
     text = Text()
-    text.append(f"Skill: ", style="bold cyan")
+    text.append("Skill: ", style="bold cyan")
     text.append(f"{comparison['skill']}\n\n", style="bold white")
 
-    text.append(f"AI Capability: ", style="bold magenta")
+    text.append("AI Capability: ", style="bold magenta")
     text.append(f"{comparison['ai_capability']}/10 ({comparison['ai_percentage']}%)\n")
 
-    text.append(f"Human Edge: ", style="bold green")
+    text.append("Human Edge: ", style="bold green")
     text.append(f"{comparison['human_edge']}/10 ({comparison['human_percentage']}%)\n")
 
-    text.append(f"Edge Score: ", style="bold yellow")
+    text.append("Edge Score: ", style="bold yellow")
     edge_sign = "+" if comparison['edge_score'] >= 0 else ""
     text.append(f"{edge_sign}{comparison['edge_score']}\n\n")
 
-    text.append(f"Category: ", style="bold")
+    text.append("Category: ", style="bold")
     text.append(f"{comparison['category'].replace('_', ' ').title()}\n\n")
 
     text.append(comparison['recommendation'])

@@ -1,10 +1,10 @@
 """Tests for domain definitions."""
 
 from human_edge_finder.domains import (
-    get_ai_capability,
-    get_human_edge_score,
     AI_CAPABILITIES,
     HUMAN_EDGE_DOMAINS,
+    get_ai_capability,
+    get_human_edge_score,
 )
 
 
